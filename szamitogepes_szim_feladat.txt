@@ -1,0 +1,99 @@
+I. (szakertoi javaslat)
+motivacios kerdes (donteshozotol): egy fertozo betegseg alfa=0.1 vsz-gel fertoz, beta=0.8 vsz-gel gyogyulunk meg. Egy 10e fos varosban, ahol 100 agy a felszabadhato kapacitas, kell-e tovabbi intezkedeseket hozni, ha varhatoan a fertozottek 5%-a szorul korhazi kezelesre?
+
+Alapmodell:
+N=10ezer ember, akik allapota (erzekeny, beteg, es gyogyult lehet), kezdetben 0.1%, azaz 10 ember beteg
+
+
+RANDOM() >> 0... RAND_MAX
+
+RANDOM() / RAND_MAX >> (0,1)
+
+
+V  V   V              V     V
+-------------------------------------
+************************* 
+
+if rand() <0.8 then ...
+
+
+elemi ciklus: 
+1) veletlenszeruen kivalasztunk egy jatekost "i"
+2) - ha gyogyult, back to 1)
+   - ha beteg, beta valoszinuseggel meggyogyul >> Hogyan kell implementalni egy valoszinusegi lepest?
+   - ha erzekeny, veletlenszeruen kivalasztunk egy partnert ("j")
+   --- ha "j" beteg, akkor alfa valoszinuseggel "i" megfertozodik
+
+Ha az elemi ciklust N-szer vegrehajtjuk, akkor atlagosan mindenkinek 1-szer lehetosege van az allapotvaltozasra
+>> termeszetes egyseg
+
+Q1: vizsgaljuk meg kulonbozo alfa-beta paroknal idoben hogyan valtozik a haromfele csoport sulya!
+-aranyokat abrazoljunk az ido fuggvenyeben
+-probalkozzunk kulonbozo lefutasokat talalni
+
+A kelloen sima gorbekhez erdemes tobb futasra atlagolni!!
+
+Q2: milyen alfa-beta parameterparoknal van szukseg intezkedesre (az alfa-beta parametersikon abrazoljuk!)
+
+
+	|
+	|
+	|
+	|
+	-------------
+
+
+
+
+
+Q3: egeszitsuk ki a programunkat azzal a lehetoseggel, hogy egy gyogyult is megfertozodhet gamma(<alfa) vsz-gel. 
+Mikent fogja ez a Q1-ben eszlelt gorbeket megvaltoztatni? Adjunk meg itt is jellemzo gorbeket rogzitett alfa-beta ertekeknel, kulonbozo gamma vsz-re!
+
+Q4: Tegyuk fel azt, hogy az emberek nem ossze-vissza keverednek, hanem csak korlatos kapcsolataik vannak. 
+Pl. legyenek egy negyzetracson periodikus hatarfeltetellel
+
+
+
+
+            1 2 3  | 1 2 3
+            4 5 6  | 4 5 6
+            7 8 9  |
+
+
+vektor[i]
+
+LxL         0 1 2  ...  L-1
+            L L+1  ... 2L-1  
+            2L
+            3L
+ 
+                       LxL-1
+
+
+
+
+
+                        i --- j=i+1  if (j%L==0) j-=L;
+
+
+                   ---  i     j=i-1; if (i%L==0) j+=L;
+
+
+                        |     j=i-L; if (i<L) j+=(LxL);
+                        i
+
+
+                              j=i+L; if (j>=LxL) j-=(LxL);
+
+RANDOM()  0 ... RAND_MAX   
+
+
+
+              RANDOM()%4
+
+  
+Kezdetben 9 beteg legyen egy 3x3-as klaszterben. Mikent fog a Q2 kerdesre adott valasz valtozni ezzel a modositassal? (tehat nincs ujra megbetegedes)
+
+Q5: Maradva a negyzetracsnal, tegyuk fel hogy oltasra is lehetoseg van. Emiatt az oltott alfa*0.1 esellyel fog megfertozodni. Milyen delta oltasi aranynal lehet elerni azt, hogy meg alfa=1, beta=0.01-nel (biztosan megbetegszik, sokaig fertoz) se legyen szukseg intezkedesre?
+
+Q6 (fakultativ, jobb jegyert): probaljuk meg reprezentativ pillanatfelvetelekkel illusztralni a kulonbozo delta ertekeknel a jarvany terbeli terjedeset!
